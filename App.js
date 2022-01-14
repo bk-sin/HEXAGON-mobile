@@ -3,6 +3,7 @@ import {createStore, applyMiddleware} from "redux"
 import rootReducer from "./redux/reducers/rootReducer"
 import thunk from "redux-thunk"
 import {Provider} from 'react-redux'
+// import Navigate from './navigation/NavDrawer'
 import Navigator from './navigation/NavTabs'
 import { NavigationContainer } from '@react-navigation/native'
 
@@ -13,6 +14,7 @@ export default function App() {
       <Provider store={store}>
         <NavigationContainer>
           <Navigator/>
+          {/* <Navigate/> */}
         </NavigationContainer>      
       </Provider>
   );

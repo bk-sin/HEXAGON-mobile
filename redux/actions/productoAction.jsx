@@ -17,6 +17,7 @@ const productoAction = {
         type: "FETCH_PRODUCTOS",
         payload: {productos: response.data.respuesta},
       })
+      console.log(response)
       return response.data
     }
   },

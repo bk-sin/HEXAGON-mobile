@@ -6,12 +6,11 @@ export default function Hero () {
     <NativeBaseProvider>
     <View>
       <Heading>
-        A component library for the{" "}
+      FIND A NEW DEVICE OR MAKE YOURS SPECIAL!
         <Heading color="emerald.400">React Ecosystem</Heading>
       </Heading>
       <Text pt="3" fontWeight="md">
-        NativeBase is a simple, modular and accessible component library that
-        gives you building blocks to build you React applications.
+      Thanks to Hexagon, you can find yourself a brand new phone or give to your current one new looks and accessories.
       </Text>
     </View>
     </NativeBaseProvider>
