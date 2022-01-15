@@ -9,15 +9,18 @@ import {connect} from 'react-redux'
 
 const Shop = (props) => {
 
-    // console.log(props.productos)
-    // useEffect(() => {
-    //   props.listaProductos()
-    // }, [])
+    console.log(props.productos)
+    useEffect(() => {
+      props.listaProductos()
+    }, [])
 
 
     return (
     <ScrollView>
-            <Cards  />            
+      {props.productos.map((producto, index) => {
+
+        return <Cards key={index} producto= {producto}  />            
+      })}
     </ScrollView>
     // <NavigationContainer>
         // {/* <Navigator/> */}

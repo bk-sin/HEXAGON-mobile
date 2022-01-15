@@ -16,3 +16,6 @@ export default function NavTabs() {
     </Tab.Navigator>
   );
 }
+
+
+// options={{ tabBarBadge: 6 }}

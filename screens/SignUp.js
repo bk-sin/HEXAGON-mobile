@@ -10,24 +10,25 @@ import {
   Select,
   CheckIcon,
 } from "native-base"
+import { ScrollView } from 'react-native';
 
 
 export default function SignUp () {
 
-  const countries = {
-   name: "Argentina",
-   name: "Bolivia",
-   name:"Paraguay",
-   name:"Brasil",
-   name:"Uruguay",
-   name:"Chile",
-   name:"Ecuador",
-   name:"Peru"
-  }
-
-
+  const countries = [
+    {name: "Argentina"},
+   {name: "Bolivia"},
+   {name:"Paraguay"},
+   {name:"Brasil"},
+   {name:"Uruguay"},
+   {name:"Chile"},
+   {name:"Ecuador"},
+   {name:"Peru"}
+  ]
+console.log(countries)
   return (
     <NativeBaseProvider>
+      <ScrollView >
     <Box safeArea p="2" w="90%" maxW="290" py="8">
       <Heading
         size="lg"
@@ -40,7 +41,7 @@ export default function SignUp () {
         Welcome to Hexagon
       </Heading>
       <Heading
-        mt="1"
+        // mt="1"
         color="coolGray.600"
         _dark={{
           color: "warmGray.200",
@@ -85,18 +86,20 @@ export default function SignUp () {
             bg: "teal.600",
             endIcon: <CheckIcon size={5} />,
           }}
-          mt="1"
+          // mt="1"
         >
             <Select.Item label="UX Research" value="ux"/>            
             
         </Select>
         </FormControl>
-        <Button mt="2" colorScheme="indigo">
+        <Button colorScheme="indigo">
           Sign up
         </Button>
       </VStack>
     </Box>
+    </ScrollView >
     </NativeBaseProvider>
+
   )
 }
 
