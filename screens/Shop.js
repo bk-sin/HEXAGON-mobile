@@ -1,38 +1,14 @@
-import React, {useEffect} from 'react';
-// import {  View } from 'react-native';
-import { ScrollView } from 'react-native';
-import Cards from '../components/Cards'
-import productoAction from '../redux/actions/productoAction'
-import {connect} from 'react-redux'
-// import Navigator from './navigation/NavDrawer'
-// import { NavigationContainer } from '@react-navigation/native';
+import { StyleSheet, Text, View } from 'react-native'
 
-const Shop = (props) => {
-
-    // console.log(props.productos)
-    // useEffect(() => {
-    //   props.listaProductos()
-    // }, [])
-
-
+const Shop = () => {
     return (
-    <ScrollView>
-            <Cards  />            
-    </ScrollView>
-    // <NavigationContainer>
-        // {/* <Navigator/> */}
-    // {/* </NavigationContainer> */
+        <View>
+            <Text></Text>
+        </View>
+    )
+}
 
-    );
-  }
+export default Shop
 
-  const mapStateToProps = (state) => {
-    return {
-      productos: state.productoReducer.productos,
-    }
-  }
-  
-  const mapDispatchToProps = {
-    listaProductos: productoAction.fetchearProductos,
-  }
-export default connect(mapStateToProps, mapDispatchToProps) (Shop)
+const styles = StyleSheet.create({})
+

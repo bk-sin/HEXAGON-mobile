@@ -1,8 +1,4 @@
-import {
-  createDrawerNavigator,
-  CustomDrawerContent,
-} from "@react-navigation/drawer";
-import Home from "../screens/Home";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import Shop from "../screens/Shop";
 import SignUp from "../screens/SignUp";
 import SignIn from "../screens/SignIn";
