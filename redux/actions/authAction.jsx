@@ -5,7 +5,8 @@ const loginUrl = rootUrl + "user/login"
 const registerUrl = rootUrl + "user/register"
 const allUsers = rootUrl + "user/modificar"
 const allUsersByDate = rootUrl + "user/getUsersByDate"
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage"
+import {ToastAndroid} from "react-native"
 
 const authAction = {
   loginPending: (email, password) => {
@@ -15,13 +16,21 @@ const authAction = {
       })
     }
   },
-  userLogin: (email, password) => {
+  userLogin: (formulario) => {
     return async (dispatch, getState) => {
+      const {email, password} = formulario
       try {
         const response = await axios.post(loginUrl, {email, password})
         if (response.data.success) {
-          await AsyncStorage.setItem("token", response.data.token);
+          await AsyncStorage.setItem("token", response.data.token)
           getState().modalReducer.showModal = false
+          ToastAndroid.showWithGravityAndOffset(
+            "Welcome to Hexagon 👋! ",
+            ToastAndroid.SHORT,
+            ToastAndroid.BOTTOM,
+            25,
+            60
+          )
           dispatch({
             type: "auth@@USER",
             payload: {
@@ -40,6 +49,13 @@ const authAction = {
           })
         }
       } catch (error) {
+        ToastAndroid.showWithGravityAndOffset(
+          "⚠️ Invalid password or email",
+          ToastAndroid.SHORT,
+          ToastAndroid.BOTTOM,
+          25,
+          60
+        )
         console.log(error)
         console.error("Email or password incorrect!")
         dispatch({
@@ -51,8 +67,9 @@ const authAction = {
       }
     }
   },
-  userRegister: (firstName, lastName, password, email, photo, country) => {
+  userRegister: (formulario) => {
     return async (dispatch, getState) => {
+      const {firstName, lastName, password, email, photo, country} = formulario
       try {
         let response = await axios.post(registerUrl, {
           firstName,
@@ -63,8 +80,8 @@ const authAction = {
           country,
         })
         if (response.data.success && !response.data.errors) {
-          getState().modalReducer.showModal = false;
-          await AsyncStorage.setItem("token", response.data.response.token);
+          getState().modalReducer.showModal = false
+          await AsyncStorage.setItem("token", response.data.response.token)
           console.log(
             "Welcome to HEXAGON " +
               response.data.response.nuevoUsuario.firstName
@@ -94,7 +111,8 @@ const authAction = {
   tokenVerify: () => {
     return async (dispatch, getState) => {
       try {
-        const token = await AsyncStorage.getItem("token") || getState().authReducer.token
+        const token =
+          (await AsyncStorage.getItem("token")) || getState().authReducer.token
         const response = await axios.get(tokenAuth, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -109,7 +127,8 @@ const authAction = {
           },
         })
       } catch (error) {
-        const token = await AsyncStorage.getItem("token") || getState().authReducer.token;
+        const token =
+          (await AsyncStorage.getItem("token")) || getState().authReducer.token
         if (token) {
           dispatch({
             type: "auth@@GET_USER_FAIL",

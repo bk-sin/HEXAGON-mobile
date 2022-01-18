@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 import {
   ImageBackground,
   Text,
@@ -6,10 +6,11 @@ import {
   TouchableOpacity,
   View,
   Image,
-} from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+} from "react-native"
+import {ScrollView} from "react-native-gesture-handler"
+import {connect} from "react-redux"
 
-export default function Hero({ navigation }) {
+function Hero({navigation}) {
   return (
     <ScrollView>
       <ImageBackground
@@ -26,7 +27,7 @@ export default function Hero({ navigation }) {
         </Text>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("Shop", { screen: "Shop" });
+            navigation.navigate("Shop", {screen: "Shop"})
           }}
         >
           <Text style={styles.boton}>Go Shopping!</Text>
@@ -91,8 +92,18 @@ export default function Hero({ navigation }) {
         </View>
       </ImageBackground>
     </ScrollView>
-  );
+  )
 }
+
+const mapStateToProps = (state) => {
+  return {
+    isAuth: state.authReducer.isAuth,
+    user: state.authReducer.user,
+  }
+}
+
+export default connect(mapStateToProps)(Hero)
+
 const styles = StyleSheet.create({
   container: {
     width: "100%",
@@ -197,4 +208,4 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     marginBottom: 15,
   },
-});
+})

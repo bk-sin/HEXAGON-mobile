@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react"
 import {
   ImageBackground,
   StyleSheet,
@@ -7,15 +7,15 @@ import {
   TextInput,
   TouchableOpacity,
   ToastAndroid,
-} from "react-native";
-import { connect } from "react-redux";
-import authActions from "../redux/actions/authAction";
+} from "react-native"
+import {connect} from "react-redux"
+import authActions from "../redux/actions/authAction"
 
 const SignIn = (props) => {
   const [form, setForm] = useState({
     email: "",
     password: "",
-  });
+  })
 
   const handleChange = async () => {
     if (form.email === "" || form.password === "") {
@@ -25,34 +25,16 @@ const SignIn = (props) => {
         ToastAndroid.BOTTOM,
         25,
         60
-      );
+      )
     } else {
       try {
-        let res = await props.userLogin(form);
-        console.log(res);
-        if (!res.data.success) {
-          ToastAndroid.showWithGravityAndOffset(
-            "⚠️ Invalid password or email",
-            ToastAndroid.SHORT,
-            ToastAndroid.BOTTOM,
-            25,
-            60
-          );
-        } else {
-          ToastAndroid.showWithGravityAndOffset(
-            "Welcome to Hexagon 👋! ",
-            ToastAndroid.SHORT,
-            ToastAndroid.BOTTOM,
-            25,
-            60
-          );
-        }
+        await props.userLogin(form)
       } catch (error) {
-        console.log(error);
-        return false;
+        console.log(error)
+        return false
       }
     }
-  };
+  }
   return (
     <ImageBackground
       style={styles.signInBack}
@@ -64,15 +46,15 @@ const SignIn = (props) => {
         <TextInput
           style={styles.input}
           placeholder="Email"
-          placeholderTextColor= "#ffffff"
-          onChange={(e) => setForm({ ...form, email: e.nativeEvent.text })}
+          placeholderTextColor="#ffffff"
+          onChange={(e) => setForm({...form, email: e.nativeEvent.text})}
         />
         <TextInput
           style={styles.input}
           secureTextEntry={true}
           placeholder="Password"
-          placeholderTextColor= "#ffffff"
-          onChange={(e) => setForm({ ...form, password: e.nativeEvent.text })}
+          placeholderTextColor="#ffffff"
+          onChange={(e) => setForm({...form, password: e.nativeEvent.text})}
         />
         <TouchableOpacity
           style={styles.button}
@@ -91,14 +73,14 @@ const SignIn = (props) => {
         </TouchableOpacity>
       </View>
     </ImageBackground>
-  );
-};
+  )
+}
 
 const mapDispatchToProps = {
   userLogin: authActions.userLogin,
-};
+}
 
-export default connect(null, mapDispatchToProps)(SignIn);
+export default connect(null, mapDispatchToProps)(SignIn)
 
 const styles = StyleSheet.create({
   signInBack: {
@@ -159,7 +141,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.3,
     color: "#ffffff",
     textShadowColor: "#020202",
-    textShadowOffset: { width: 2, height: 2 },
+    textShadowOffset: {width: 2, height: 2},
     textShadowRadius: 2,
   },
   textCont: {
@@ -179,7 +161,7 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     borderBottomWidth: 2,
     textShadowColor: "#020202",
-    textShadowOffset: { width: 2, height: 2 },
+    textShadowOffset: {width: 2, height: 2},
     textShadowRadius: 2,
   },
-});
+})

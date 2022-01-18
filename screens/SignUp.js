@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react"
 import {
   StyleSheet,
   Text,
@@ -8,13 +8,15 @@ import {
   ToastAndroid,
   TouchableOpacity,
   ImageBackground,
-} from "react-native";
-import SelectDropdown from "react-native-select-dropdown";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { connect } from "react-redux";
-import authAction from "../redux/actions/authAction.jsx";
+} from "react-native"
+import SelectDropdown from "react-native-select-dropdown"
+import FontAwesome from "react-native-vector-icons/FontAwesome"
+import {connect} from "react-redux"
+import authAction from "../redux/actions/authAction.jsx"
 
 const SignUp = (props) => {
+  console.log(props?.user)
+
   const countries = [
     "Argentina",
     "Bolivia",
@@ -25,7 +27,7 @@ const SignUp = (props) => {
     "Peru",
     "Brasil",
     "Venezuela",
-  ];
+  ]
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -33,25 +35,23 @@ const SignUp = (props) => {
     password: "",
     photo: "",
     country: "",
-  });
+  })
 
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(null)
   const onSubmit = async (e) => {
-    console.log(form);
-    let response = await props.userRegister(form);
-    console.log(response);
+    let response = await props.userRegister(form)
     if (!response.data.success) {
       if (Array.isArray(response.data.errors)) {
         setError(
           response.data.errors.map((msj, id) => {
-            return <p key={id}>{msj.message}</p>;
+            return <p key={id}>{msj.message}</p>
           })
-        );
+        )
       } else {
-        setError(<p>{response.data.error}</p>);
+        setError(<p>{response.data.error}</p>)
       }
     }
-  };
+  }
 
   const handleChange = async () => {
     if (
@@ -68,22 +68,21 @@ const SignUp = (props) => {
         ToastAndroid.BOTTOM,
         25,
         60
-      );
+      )
     } else {
       try {
-        let response = await props.userRegister(form);
-        console.log(response);
+        let response = await props.userRegister(form)
         if (response.data.success) {
-          props.navigation.navigate("home");
+          props.navigation.navigate("home")
           ToastAndroid.showWithGravityAndOffset(
             "Welcome to Hexagon 👋!",
             ToastAndroid.SHORT,
             ToastAndroid.BOTTOM,
             25,
             60
-          );
+          )
         } else if (response.data.errors) {
-          let errors = response.data.errors;
+          let errors = response.data.errors
           errors.map((error) =>
             ToastAndroid.showWithGravityAndOffset(
               "⚠️" + error.message,
@@ -92,7 +91,7 @@ const SignUp = (props) => {
               25,
               60
             )
-          );
+          )
         } else {
           ToastAndroid.showWithGravityAndOffset(
             "This email is already in use",
@@ -100,13 +99,13 @@ const SignUp = (props) => {
             ToastAndroid.BOTTOM,
             25,
             60
-          );
+          )
         }
       } catch (error) {
-        console.log(error);
+        console.log(error)
       }
     }
-  };
+  }
 
   return (
     <ScrollView>
@@ -124,33 +123,33 @@ const SignUp = (props) => {
         <TextInput
           style={styles.input}
           placeholder="First Name"
-          placeholderTextColor= "#ffffff"
-          onChange={(e) => setForm({ ...form, firstName: e.nativeEvent.text })}
+          placeholderTextColor="#ffffff"
+          onChange={(e) => setForm({...form, firstName: e.nativeEvent.text})}
         />
         <TextInput
           style={styles.input}
           placeholder="Last Name"
-          placeholderTextColor= "#ffffff"
-          onChange={(e) => setForm({ ...form, lastName: e.nativeEvent.text })}
+          placeholderTextColor="#ffffff"
+          onChange={(e) => setForm({...form, lastName: e.nativeEvent.text})}
         />
         <TextInput
           style={styles.input}
           placeholder="Email"
-          placeholderTextColor= "#ffffff"
-          onChange={(e) => setForm({ ...form, email: e.nativeEvent.text })}
+          placeholderTextColor="#ffffff"
+          onChange={(e) => setForm({...form, email: e.nativeEvent.text})}
         />
         <TextInput
           style={styles.input}
           placeholder="Picture Url"
-          placeholderTextColor= "#ffffff"
-          onChange={(e) => setForm({ ...form, photo: e.nativeEvent.text })}
+          placeholderTextColor="#ffffff"
+          onChange={(e) => setForm({...form, photo: e.nativeEvent.text})}
         />
         <TextInput
           style={styles.input}
           secureTextEntry={true}
           placeholder="Password"
-          placeholderTextColor= "#ffffff"
-          onChange={(e) => setForm({ ...form, password: e.nativeEvent.text })}
+          placeholderTextColor="#ffffff"
+          onChange={(e) => setForm({...form, password: e.nativeEvent.text})}
         />
         <SelectDropdown
           style={styles.inputSelect}
@@ -159,19 +158,15 @@ const SignUp = (props) => {
           buttonStyle={styles.dropdownButtonStyle}
           buttonTextStyle={styles.dropdown1BtnTxtStyle}
           renderDropdownIcon={() => {
-            return (
-              <FontAwesome name="chevron-down" color={"black"} size={15} />
-            );
+            return <FontAwesome name="chevron-down" color={"black"} size={15} />
           }}
           dropdownIconPosition={"right"}
-          onSelect={(selectedItem) =>
-            setForm({ ...form, country: selectedItem })
-          }
+          onSelect={(selectedItem) => setForm({...form, country: selectedItem})}
           buttonTextAfterSelection={(selectedItem, index) => {
-            return selectedItem;
+            return selectedItem
           }}
           rowTextForSelection={(item, index) => {
-            return item;
+            return item
           }}
           onValueChange={(e) => userHandler(e, "country")}
         />
@@ -192,14 +187,20 @@ const SignUp = (props) => {
       </ImageBackground>
       {/* </ImageBackground> */}
     </ScrollView>
-  );
-};
+  )
+}
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.authReducer.user,
+  }
+}
 
 const mapDispatchToProps = {
   userRegister: authAction.userRegister,
-};
+}
 
-export default connect(null, mapDispatchToProps)(SignUp);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp)
 
 const styles = StyleSheet.create({
   signUpBack: {
@@ -266,7 +267,7 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     borderBottomWidth: 2,
     textShadowColor: "#020202",
-    textShadowOffset: { width: 2, height: 2 },
+    textShadowOffset: {width: 2, height: 2},
     textShadowRadius: 2,
   },
   dropdownButtonStyle: {
@@ -281,4 +282,4 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "white",
   },
-});
+})
