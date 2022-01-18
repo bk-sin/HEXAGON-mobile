@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 import {
   ImageBackground,
   Text,
@@ -6,8 +6,8 @@ import {
   TouchableOpacity,
   View,
   Image,
-} from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+} from "react-native"
+import {ScrollView} from "react-native-gesture-handler"
 
 export default function Hero(props) {
   return (
@@ -87,7 +87,7 @@ export default function Hero(props) {
         </View>
       </ImageBackground>
     </ScrollView>
-  );
+  )
 }
 const styles = StyleSheet.create({
   container: {
@@ -193,4 +193,4 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     marginBottom: 15,
   },
-});
+})

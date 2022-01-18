@@ -1,11 +1,11 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Button } from "react-native";
-import Home from "../screens/Home";
-import Shop from "../screens/Shop";
-import SignUp from "../screens/SignUp";
-import SignIn from "../screens/SignIn";
+import {createBottomTabNavigator} from "@react-navigation/bottom-tabs"
+import {Button} from "react-native"
+import Home from "../screens/Home"
+import Shop from "../screens/Shop"
+import SignUp from "../screens/SignUp"
+import SignIn from "../screens/SignIn"
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator()
 
 export default function NavTabs(props) {
   return (
@@ -28,5 +28,5 @@ export default function NavTabs(props) {
       <Tab.Screen name="SignUp" component={SignUp} />
       <Tab.Screen name="SignIn" component={SignIn} />
     </Tab.Navigator>
-  );
+  )
 }

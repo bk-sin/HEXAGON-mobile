@@ -6,7 +6,9 @@ const addProduct = rootUrl + "productos"
 const productoAction = {
   fetchearProductos: () => {
     return async (dispatch, getState) => {
-      const response = await axios.get("http://localhost:4000/api/productos")
+      const response = await axios.get(
+        "https://hexagon-techstore.herokuapp.com/api/productos"
+      )
       dispatch({
         type: "FETCH_PRODUCTOS",
         payload: {productos: response.data.respuesta},
@@ -19,7 +21,7 @@ const productoAction = {
   fetchUnProducto: (id) => {
     return (dispatch, getState) => {
       axios
-        .get("http://localhost:4000/api/productos/" + id)
+        .get(`https://hexagon-techstore.herokuapp.com/api/productos` + id)
         .then((respuesta) =>
           dispatch({type: "FETCH_UN_PRODUCTO", payload: respuesta.data})
         )
