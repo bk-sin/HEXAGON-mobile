@@ -17,7 +17,6 @@ const productoAction = {
         type: "FETCH_PRODUCTOS",
         payload: {productos: response.data.respuesta},
       })
-      console.log(response)
       return response.data
     }
   },
@@ -36,7 +35,7 @@ const productoAction = {
     return async () => {
       try {
         const response = await axios.put(
-          `http://localhost:4000/api/productos/like/` + id,
+          `https://hexagon-techstore.herokuapp.com/api/productos/like/` + id,
           {idUsuario},
           {
             headers: {
@@ -58,7 +57,6 @@ const productoAction = {
           {imagen, nombre, descripcion, marca, categoria, stock},
           tokenHeader
         )
-        console.log(response)
       } catch (error) {
         console.log(error)
       }

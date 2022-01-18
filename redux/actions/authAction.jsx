@@ -1,6 +1,6 @@
 import axios from "axios"
-import {toast} from "react-toastify"
-const rootUrl = "http://localhost:4000/api/"
+// import {toast} from "react-toastify"
+const rootUrl = "https://hexagon-techstore.herokuapp.com/api/"
 const loginUrl = rootUrl + "user/login"
 const registerUrl = rootUrl + "user/register"
 const allUsers = rootUrl + "user/modificar"
@@ -19,19 +19,15 @@ const authAction = {
       try {
         const response = await axios.post(loginUrl, {email, password})
         if (response.data.success) {
-          getState().modalReducer.showModal = false
-          console.log(response)
-          localStorage.setItem("token", response.data.token)
           dispatch({
             type: "auth@@USER",
             payload: {
               user: response.data.response,
               authError: response.data.errors,
-              token: response.data.token,
             },
           })
         } else {
-          toast.error(response.data.errors)
+          // toast.error(response.data.errors)
           dispatch({
             type: "auth@@GET_USER_FAIL",
             payload: {
@@ -41,7 +37,7 @@ const authAction = {
         }
       } catch (error) {
         console.log(error)
-        toast.error("Email or password incorrect!")
+        // toast.error("Email or password incorrect!")
         dispatch({
           type: "auth@@GET_USER_FAIL",
           payload: {
@@ -64,27 +60,22 @@ const authAction = {
         })
         console.log(response)
         if (response.data.success && !response.data.errors) {
-          getState().modalReducer.showModal = false
-          localStorage.setItem("token", response.data.response.token)
-          toast.success(
-            "Welcome to HEXAGON " +
-              response.data.response.nuevoUsuario.firstName
-          )
-          dispatch({
+           dispatch({
             type: "auth@@NEW_USER",
             payload: {user: response.data.response.nuevoUsuario},
-          })
+            })
+            return response.data.response.nuevoUsuario
         } else {
           dispatch({
             type: "auth@@GET_USER_FAIL",
             payload: {authError: response.data.errors},
           })
           response.data.errors.isArray
-            ? response.data.errors.map((err) => {
+            response.data.errors.map((err) => {
                 console.log(err.message)
-                toast.error(err.message)
+                // toast.error(err.message)
               })
-            : toast.error(response.data.errors)
+            // : toast.error(response.data.errors)
         }
       } catch (error) {
         console.error(error)

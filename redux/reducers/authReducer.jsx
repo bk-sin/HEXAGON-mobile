@@ -9,6 +9,7 @@ const initialState = {
 }
 
 function authReducer(state = initialState, {payload, type}) {
+  console.log(payload)
   switch (type) {
     case "auth@@GET_USER_PENDING":
       return {

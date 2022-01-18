@@ -11,9 +11,26 @@ import {
   Stack,
   NativeBaseProvider,
 } from "native-base"
+import productoAction from "../redux/actions/productoAction"
+import { connect } from "react-redux"
 
+const Cards = (props) => {
+  
+//   const [likeProducts, setlikeProduct] = useState(props.producto.likes)
 
-export const Cards = (props) => {
+//   const likeDislikeProduct = async () =>{
+//     if(!props.user._id){
+//         // Toast.fire({
+//         //     icon: 'error',
+//         //     title: "You need to be logged in to like"
+//         // }) 
+//     }else {
+//         let response = await props.likeDislike(props.producto._id, props.user._id)
+//         setlikeProduct(response)
+//     }
+// }
+
+// let likes = likeProducts.includes(props.user && props.user._id) ? "❤️" : "🤍"
 
   return (
     <NativeBaseProvider>
@@ -101,6 +118,8 @@ export const Cards = (props) => {
             <Text>
               {props.producto.calificacion}
             </Text>
+            {/* <Text onPress={()=>likeDislikeProduct()}>{likes}</Text>
+							<Text>{likeProducts.length}</Text> */}
           </HStack>
         </HStack>
       </Stack>
@@ -111,7 +130,16 @@ export const Cards = (props) => {
   )
 }
 
-export default Cards
+const mapStateToProps = (state) => {
+  return {
+      user : state.authReducer.user
+  }
+}
+
+const mapDispatchToProps = {
+  likeDislike : productoAction.likeDislike
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Cards)
 
 const styles = StyleSheet.create({
 
