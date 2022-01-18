@@ -1,10 +1,11 @@
 import axios from "axios"
-import {toast} from "react-toastify"
-const rootUrl = "http://localhost:4000/api/"
+const rootUrl = "https://hexagon-techstore.herokuapp.com/api/"
+const tokenAuth = rootUrl + "auth"
 const loginUrl = rootUrl + "user/login"
 const registerUrl = rootUrl + "user/register"
 const allUsers = rootUrl + "user/modificar"
 const allUsersByDate = rootUrl + "user/getUsersByDate"
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const authAction = {
   loginPending: (email, password) => {
@@ -19,19 +20,18 @@ const authAction = {
       try {
         const response = await axios.post(loginUrl, {email, password})
         if (response.data.success) {
+          await AsyncStorage.setItem("token", response.data.token);
           getState().modalReducer.showModal = false
-          console.log(response)
-          localStorage.setItem("token", response.data.token)
           dispatch({
             type: "auth@@USER",
             payload: {
-              user: response.data.response,
+              user: response.data.user,
               authError: response.data.errors,
               token: response.data.token,
             },
           })
         } else {
-          toast.error(response.data.errors)
+          console.error(response.data.errors)
           dispatch({
             type: "auth@@GET_USER_FAIL",
             payload: {
@@ -41,7 +41,7 @@ const authAction = {
         }
       } catch (error) {
         console.log(error)
-        toast.error("Email or password incorrect!")
+        console.error("Email or password incorrect!")
         dispatch({
           type: "auth@@GET_USER_FAIL",
           payload: {
@@ -62,17 +62,20 @@ const authAction = {
           photo,
           country,
         })
-        console.log(response)
         if (response.data.success && !response.data.errors) {
-          getState().modalReducer.showModal = false
-          localStorage.setItem("token", response.data.response.token)
-          toast.success(
+          getState().modalReducer.showModal = false;
+          await AsyncStorage.setItem("token", response.data.response.token);
+          console.log(
             "Welcome to HEXAGON " +
               response.data.response.nuevoUsuario.firstName
           )
           dispatch({
             type: "auth@@NEW_USER",
-            payload: {user: response.data.response.nuevoUsuario},
+            payload: {
+              user: response.data.response.nuevoUsuario,
+              token: response.data.response.token,
+              authError: response.data.errors,
+            },
           })
         } else {
           dispatch({
@@ -80,11 +83,8 @@ const authAction = {
             payload: {authError: response.data.errors},
           })
           response.data.errors.isArray
-            ? response.data.errors.map((err) => {
-                console.log(err.message)
-                toast.error(err.message)
-              })
-            : toast.error(response.data.errors)
+            ? response.data.errors.map((err) => console.error(err.message))
+            : console.error(response.data.errors)
         }
       } catch (error) {
         console.error(error)
@@ -93,26 +93,24 @@ const authAction = {
   },
   tokenVerify: () => {
     return async (dispatch, getState) => {
-      const token = localStorage.getItem("token")
       try {
-        const response = await axios.get("http://localhost:4000/api/auth", {
+        const token = await AsyncStorage.getItem("token") || getState().authReducer.token
+        const response = await axios.get(tokenAuth, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         })
-
-
         dispatch({
           type: "auth@@GET_USER_SUCCESS",
           payload: {
-            user: response.data.response,
+            user: response.data.user,
             token: token,
             authError: null,
           },
         })
       } catch (error) {
+        const token = await AsyncStorage.getItem("token") || getState().authReducer.token;
         if (token) {
-          /* localStorage.removeItem("token") */
           dispatch({
             type: "auth@@GET_USER_FAIL",
             payload: {user: null, token: null, authError: error.message},
@@ -126,8 +124,8 @@ const authAction = {
       }
     }
   },
-  logout: () => {
-    localStorage.removeItem("token")
+  logout: async () => {
+    await AsyncStorage.removeItem("token")
     return (dispatch, getState) => {
       dispatch({type: "auth@@LOGOUT", payload: ""})
     }
@@ -135,7 +133,6 @@ const authAction = {
   getUsers: () => {
     return async (dispatch, getState) => {
       const response = await axios.get(allUsers)
-      console.log(response)
       dispatch({type: "auth@@ALL_USERS", payload: response.data.response})
       return response
     }
@@ -143,7 +140,6 @@ const authAction = {
   getUsersByDate: () => {
     return async (dispatch, getState) => {
       const response = await axios.get(allUsersByDate)
-      console.log(response)
       dispatch({
         type: "auth@@ALL_USERS_BY_DATE",
         payload: response.data,
