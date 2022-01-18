@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "mytinerary-mobile-alegre",
-    "slug": "mytinerary-mobile-alegre",
+    "name": "challenge-react-native",
+    "slug": "challenge-react-native",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

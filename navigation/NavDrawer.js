@@ -1,27 +1,37 @@
-// import * as React from 'react';
-// import { createDrawerNavigator} from '@react-navigation/drawer';
-// import Home from '../screens/Home';
-// import Shop from '../screens/Shop';
-// import Perfil from '../components/Perfil';
+import {
+  createDrawerNavigator,
+  CustomDrawerContent,
+} from "@react-navigation/drawer";
+import Home from "../screens/Home";
+import Shop from "../screens/Shop";
+import SignUp from "../screens/SignUp";
+import SignIn from "../screens/SignIn";
+import NavTabs from "./NavTabs";
 
-// const Drawer = createDrawerNavigator()
+const Tab = createDrawerNavigator();
 
-
-// export default function NavDrawer() {
-//   return (
-//   <Drawer.Navigator>
-//     <Drawer.Screen 
-//     name="Home"
-//     component={Home}
-//     />  
-//       <Drawer.Screen 
-//     name="Shop"
-//     component={Shop}
-//     />  
-//        <Drawer.Screen 
-//     name="Perfil"
-//     component={Perfil}
-//     /> 
-
-// </Drawer.Navigator>
-// )}
+const NavDrawer = (props) => {
+  return (
+    <Tab.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: "#212529",
+        },
+        headerTintColor: "#ffffff",
+      }}
+    >
+      <Tab.Screen
+        name="Home"
+        component={NavTabs}
+        options={{
+          title: "Hexagon",
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen name="Shop" component={Shop} />
+      <Tab.Screen name="SignUp" component={SignUp} />
+      <Tab.Screen name="SignIn" component={SignIn} />
+    </Tab.Navigator>
+  );
+};
+export default NavDrawer;
