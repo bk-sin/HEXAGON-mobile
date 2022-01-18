@@ -64,12 +64,14 @@ const SignIn = (props) => {
         <TextInput
           style={styles.input}
           placeholder="Email"
+          placeholderTextColor= "#ffffff"
           onChange={(e) => setForm({ ...form, email: e.nativeEvent.text })}
         />
         <TextInput
           style={styles.input}
           secureTextEntry={true}
           placeholder="Password"
+          placeholderTextColor= "#ffffff"
           onChange={(e) => setForm({ ...form, password: e.nativeEvent.text })}
         />
         <TouchableOpacity
@@ -110,7 +112,7 @@ const styles = StyleSheet.create({
     margin: 8,
     padding: 10,
     borderRadius: 2,
-    borderColor: "#504747",
+    borderColor: "#ffffff",
     borderStyle: "solid",
     borderWidth: 2,
     borderRadius: 10,
@@ -119,7 +121,7 @@ const styles = StyleSheet.create({
     marginTop: 60,
     padding: 10,
     alignSelf: "center",
-    color: "#1d1b1b",
+    color: "#fbfbfb",
     fontSize: 35,
     textAlign: "center",
   },

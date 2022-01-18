@@ -8,7 +8,6 @@ import { connect } from "react-redux";
 // import { NavigationContainer } from '@react-navigation/native';
 
 const Shop = (props) => {
-  console.log(props.productos);
   useEffect(() => {
     props.listaProductos();
   }, []);

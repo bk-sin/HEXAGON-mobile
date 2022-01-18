@@ -7,11 +7,12 @@ import {
   TextInput,
   ToastAndroid,
   TouchableOpacity,
+  ImageBackground,
 } from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { connect } from "react-redux";
-import authAction from "../redux/actions/authAction";
+import authAction from "../redux/actions/authAction.jsx";
 
 const SignUp = (props) => {
   const countries = [
@@ -38,7 +39,7 @@ const SignUp = (props) => {
   const onSubmit = async (e) => {
     console.log(form);
     let response = await props.userRegister(form);
-    console.log(response.data);
+    console.log(response);
     if (!response.data.success) {
       if (Array.isArray(response.data.errors)) {
         setError(
@@ -71,7 +72,7 @@ const SignUp = (props) => {
     } else {
       try {
         let response = await props.userRegister(form);
-        console.log(response.data);
+        console.log(response);
         if (response.data.success) {
           props.navigation.navigate("home");
           ToastAndroid.showWithGravityAndOffset(
@@ -114,32 +115,41 @@ const SignUp = (props) => {
         source={require("../assets/home.jpg")}
         resizeMode="cover"
       > */}
-      <Text style={styles.signUpTitle}>Sign up!</Text>
-      <View style={styles.inputConteiner}>
+      <ImageBackground
+        source={require("../assets/bg2.jpg")}
+        resizeMode="cover"
+        style={styles.inputConteiner}
+      >
+        <Text style={styles.signUpTitle}>Sign up!</Text>
         <TextInput
           style={styles.input}
           placeholder="First Name"
+          placeholderTextColor= "#ffffff"
           onChange={(e) => setForm({ ...form, firstName: e.nativeEvent.text })}
         />
         <TextInput
           style={styles.input}
           placeholder="Last Name"
+          placeholderTextColor= "#ffffff"
           onChange={(e) => setForm({ ...form, lastName: e.nativeEvent.text })}
         />
         <TextInput
           style={styles.input}
           placeholder="Email"
+          placeholderTextColor= "#ffffff"
           onChange={(e) => setForm({ ...form, email: e.nativeEvent.text })}
         />
         <TextInput
           style={styles.input}
           placeholder="Picture Url"
+          placeholderTextColor= "#ffffff"
           onChange={(e) => setForm({ ...form, photo: e.nativeEvent.text })}
         />
         <TextInput
           style={styles.input}
           secureTextEntry={true}
           placeholder="Password"
+          placeholderTextColor= "#ffffff"
           onChange={(e) => setForm({ ...form, password: e.nativeEvent.text })}
         />
         <SelectDropdown
@@ -179,7 +189,7 @@ const SignUp = (props) => {
         >
           <Text style={styles.textSignIn}>Already a member? Sign In here</Text>
         </TouchableOpacity>
-      </View>
+      </ImageBackground>
       {/* </ImageBackground> */}
     </ScrollView>
   );
@@ -203,7 +213,7 @@ const styles = StyleSheet.create({
     margin: 9,
     padding: 10,
     borderRadius: 2,
-    borderColor: "#504747",
+    borderColor: "#ffffff",
     borderStyle: "solid",
     borderWidth: 2,
     borderRadius: 10,
@@ -215,13 +225,14 @@ const styles = StyleSheet.create({
     marginTop: 50,
     padding: 10,
     alignSelf: "center",
-    color: "#1d1b1b",
+    color: "#ffffff",
     fontSize: 35,
     textAlign: "center",
   },
 
   inputConteiner: {
     alignItems: "center",
+    height: 670,
   },
   button: {
     alignItems: "center",
