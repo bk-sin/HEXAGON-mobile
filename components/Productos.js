@@ -103,7 +103,7 @@ const Productos = (props) => {
                 <Text>{props.producto.calificacion}</Text>
                 <TouchableOpacity
                   onPress={() =>
-                    props.navigation.navigate("paginaProducto", {
+                    props.navigate("paginaProducto", {
                       id: props.producto._id,
                     })
                   }
