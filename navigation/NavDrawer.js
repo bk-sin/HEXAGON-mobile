@@ -1,18 +1,22 @@
 import {
   createDrawerNavigator,
-  CustomDrawerContent,
-} from "@react-navigation/drawer"
-import Home from "../screens/Home"
-import Shop from "../screens/Shop"
-import SignUp from "../screens/SignUp"
-import SignIn from "../screens/SignIn"
-import NavTabs from "./NavTabs"
+  DrawerContentScrollView,
+  DrawerItemList
+} from "@react-navigation/drawer";
+import Shop from "../screens/Shop";
+import SignUp from "../screens/SignUp";
+import SignIn from "../screens/SignIn";
+import NavTabs from "./NavTabs";
+import { Text } from "react-native";
 
-const Tab = createDrawerNavigator()
+const drawer = createDrawerNavigator();
 
 const NavDrawer = (props) => {
   return (
-    <Tab.Navigator
+    <drawer.Navigator
+      // drawerContent={(props) => {
+      //   <MenuItems {...props} />;
+      // }}
       screenOptions={{
         headerStyle: {
           backgroundColor: "#212529",
@@ -20,7 +24,7 @@ const NavDrawer = (props) => {
         headerTintColor: "#ffffff",
       }}
     >
-      <Tab.Screen
+      <drawer.Screen
         name="Home"
         component={NavTabs}
         options={{
@@ -28,10 +32,18 @@ const NavDrawer = (props) => {
           headerShown: false,
         }}
       />
-      <Tab.Screen name="Shop" component={Shop} />
-      <Tab.Screen name="SignUp" component={SignUp} />
-      <Tab.Screen name="SignIn" component={SignIn} />
-    </Tab.Navigator>
-  )
-}
-export default NavDrawer
+      <drawer.Screen name="Shop" component={Shop} />
+      <drawer.Screen name="SignUp" component={SignUp} />
+      <drawer.Screen name="SignIn" component={SignIn} />
+    </drawer.Navigator>
+  );
+};
+
+// const MenuItems = ({ navigation }) => {
+//   return (
+//     <DrawerContentScrollView>
+//       <Text>My Menu</Text>
+//     </DrawerContentScrollView>
+//   );
+// };
+export default NavDrawer;

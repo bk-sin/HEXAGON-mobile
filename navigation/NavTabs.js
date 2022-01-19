@@ -1,20 +1,23 @@
-import {createBottomTabNavigator} from "@react-navigation/bottom-tabs"
-import {Button} from "react-native"
-import Home from "../screens/Home"
-import Shop from "../screens/Shop"
-import SignUp from "../screens/SignUp"
-import SignIn from "../screens/SignIn"
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { Button } from "react-native";
+import Home from "../screens/Home";
+import Shop from "../screens/Shop";
+import SignUp from "../screens/SignUp";
+import SignIn from "../screens/SignIn";
+import authAction from "../redux/actions/authAction.jsx";
+import { connect } from "react-redux";
 
-const Tab = createBottomTabNavigator()
-
-export default function NavTabs(props) {
+const Tab = createNativeStackNavigator();
+function NavTabs(props) {
+  !props.isAuth && props.tokenVerify();
+  console.log(props)
   return (
     <Tab.Navigator>
       <Tab.Screen
         name="Home"
         component={Home}
         options={{
-          title: "Hexagon",
+          title: props.isAuth ? props.user : "Hexagon",
           headerRight: () => (
             <Button
               onPress={() => props.navigation.openDrawer()}
@@ -28,5 +31,18 @@ export default function NavTabs(props) {
       <Tab.Screen name="SignUp" component={SignUp} />
       <Tab.Screen name="SignIn" component={SignIn} />
     </Tab.Navigator>
-  )
+  );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    isAuth: state.authReducer.isAuth,
+    user: state.authReducer.user,
+  };
+};
+
+const mapDispatchToProps = {
+  tokenVerify: authAction.tokenVerify,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavTabs);

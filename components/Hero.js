@@ -8,8 +8,9 @@ import {
   Image,
 } from "react-native"
 import {ScrollView} from "react-native-gesture-handler"
+import {connect} from "react-redux"
 
-export default function Hero(props) {
+function Hero({navigation}) {
   return (
     <ScrollView>
       <ImageBackground
@@ -24,7 +25,11 @@ export default function Hero(props) {
           Thanks to Hexagon, you can find yourself a brand new phone or give to
           your current one new looks and accessories
         </Text>
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("Shop", {screen: "Shop"})
+          }}
+        >
           <Text style={styles.boton}>Go Shopping!</Text>
         </TouchableOpacity>
         <View style={styles.rosa}></View>
@@ -89,6 +94,16 @@ export default function Hero(props) {
     </ScrollView>
   )
 }
+
+const mapStateToProps = (state) => {
+  return {
+    isAuth: state.authReducer.isAuth,
+    user: state.authReducer.user,
+  }
+}
+
+export default connect(mapStateToProps)(Hero)
+
 const styles = StyleSheet.create({
   container: {
     width: "100%",

@@ -1,91 +1,167 @@
-import * as React from "react"
+import React, {useState} from "react"
 import {
-  Box,
+  ImageBackground,
+  StyleSheet,
   Text,
-  Heading,
-  VStack,
-  FormControl,
-  Input,
-  Link,
-  Button,
-  HStack,
-  NativeBaseProvider,
-} from "native-base"
+  View,
+  TextInput,
+  TouchableOpacity,
+  ToastAndroid,
+} from "react-native"
+import {connect} from "react-redux"
+import authActions from "../redux/actions/authAction"
 
+const SignIn = (props) => {
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  })
 
-export default function SignIn () {
+  const handleChange = async () => {
+    if (form.email === "" || form.password === "") {
+      ToastAndroid.showWithGravityAndOffset(
+        "⚠️ All fields must be completed",
+        ToastAndroid.SHORT,
+        ToastAndroid.BOTTOM,
+        25,
+        60
+      )
+    } else {
+      try {
+        await props.userLogin(form)
+      } catch (error) {
+        console.log(error)
+        return false
+      }
+    }
+  }
   return (
-    <NativeBaseProvider>
-    <Box safeArea p="2" py="8" w="90%" maxW="290">
-      <Heading
-        size="lg"
-        fontWeight="600"
-        color="coolGray.800"
-        _dark={{
-          color: "warmGray.50",
-        }}
-      >
-        Welcome
-      </Heading>
-      <Heading
-        mt="1"
-        _dark={{
-          color: "warmGray.200",
-        }}
-        color="coolGray.600"
-        fontWeight="medium"
-        size="xs"
-      >
-        Sign in to continue!
-      </Heading>
-
-      <VStack space={3} mt="5">
-        <FormControl>
-          <FormControl.Label>Email ID</FormControl.Label>
-          <Input />
-        </FormControl>
-        <FormControl>
-          <FormControl.Label>Password</FormControl.Label>
-          <Input type="password" />
-          <Link
-            _text={{
-              fontSize: "xs",
-              fontWeight: "500",
-              color: "indigo.500",
-            }}
-            alignSelf="flex-end"
-            mt="1"
-          >
-            Forget Password?
-          </Link>
-        </FormControl>
-        <Button mt="2" colorScheme="indigo">
-          Sign in
-        </Button>
-        <HStack mt="6" justifyContent="center">
-          <Text
-            fontSize="sm"
-            color="coolGray.600"
-            _dark={{
-              color: "warmGray.200",
-            }}
-          >
-            I'm a new user.{" "}
-          </Text>
-          <Link
-            _text={{
-              color: "indigo.500",
-              fontWeight: "medium",
-              fontSize: "sm",
-            }}
-            href="#"
-          >
-            Sign Up
-          </Link>
-        </HStack>
-      </VStack>
-    </Box>
-    </NativeBaseProvider>
+    <ImageBackground
+      style={styles.signInBack}
+      source={require("../assets/bg2.jpg")}
+      resizeMode="cover"
+    >
+      <Text style={styles.signInTitle}>Sign up!</Text>
+      <View style={styles.inputConteiner}>
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          placeholderTextColor="#ffffff"
+          onChange={(e) => setForm({...form, email: e.nativeEvent.text})}
+        />
+        <TextInput
+          style={styles.input}
+          secureTextEntry={true}
+          placeholder="Password"
+          placeholderTextColor="#ffffff"
+          onChange={(e) => setForm({...form, password: e.nativeEvent.text})}
+        />
+        <TouchableOpacity
+          style={styles.button}
+          activeOpacity={0.7}
+          onPress={handleChange}
+        >
+          <Text style={styles.text}>Sign In</Text>
+        </TouchableOpacity>
+        <Text style={styles.tituloSignIn}>Don't have an account?</Text>
+        <TouchableOpacity
+          style={styles.buttonSignIn}
+          activeOpacity={0.7}
+          onPress={() => props.navigation.navigate("SignUp")}
+        >
+          <Text style={styles.textSignIn}>Sign up here</Text>
+        </TouchableOpacity>
+      </View>
+    </ImageBackground>
   )
 }
 
+const mapDispatchToProps = {
+  userLogin: authActions.userLogin,
+}
+
+export default connect(null, mapDispatchToProps)(SignIn)
+
+const styles = StyleSheet.create({
+  signInBack: {
+    width: "100%",
+    height: 695,
+    alignItems: "center",
+  },
+  input: {
+    height: 45,
+    width: 260,
+    margin: 8,
+    padding: 10,
+    borderRadius: 2,
+    borderColor: "#ffffff",
+    borderStyle: "solid",
+    borderWidth: 2,
+    borderRadius: 10,
+  },
+  signInTitle: {
+    marginTop: 60,
+    padding: 10,
+    alignSelf: "center",
+    color: "#fbfbfb",
+    fontSize: 35,
+    textAlign: "center",
+  },
+
+  inputConteiner: {
+    alignItems: "center",
+  },
+  button: {
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 4,
+    elevation: 3,
+    marginTop: 15,
+    backgroundColor: "black",
+    width: 150,
+    height: 50,
+    zIndex: 1,
+  },
+  text: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: "bold",
+    letterSpacing: 0.25,
+    color: "white",
+  },
+  signInText: {
+    padding: 8,
+    fontSize: 17,
+    color: "gray",
+    textAlign: "center",
+  },
+  tituloSignIn: {
+    fontSize: 18,
+    fontWeight: "bold",
+    letterSpacing: 0.3,
+    color: "#ffffff",
+    textShadowColor: "#020202",
+    textShadowOffset: {width: 2, height: 2},
+    textShadowRadius: 2,
+  },
+  textCont: {
+    marginVertical: 10,
+  },
+  buttonSignIn: {
+    alignItems: "center",
+    justifyContent: "center",
+    width: "70%",
+    height: 40,
+    zIndex: 1,
+  },
+  textSignIn: {
+    fontSize: 18,
+    fontWeight: "bold",
+    letterSpacing: 0.3,
+    color: "#ffffff",
+    borderBottomWidth: 2,
+    textShadowColor: "#020202",
+    textShadowOffset: {width: 2, height: 2},
+    textShadowRadius: 2,
+  },
+})

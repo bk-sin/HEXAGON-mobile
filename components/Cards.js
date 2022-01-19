@@ -1,5 +1,5 @@
-import React from "react"
-import {StyleSheet} from "react-native"
+import React from "react";
+import { StyleSheet } from "react-native";
 import {
   Box,
   Heading,
@@ -10,9 +10,11 @@ import {
   HStack,
   Stack,
   NativeBaseProvider,
-} from "native-base"
+} from "native-base";
+import productoAction from "../redux/actions/productoAction";
+import { connect } from "react-redux";
 
-export const Cards = (props) => {
+const Cards = (props) => {
   return (
     <NativeBaseProvider>
       <Center>
@@ -39,7 +41,7 @@ export const Cards = (props) => {
             <AspectRatio w="100%" ratio={16 / 9}>
               <Image
                 styles={styles.imagen}
-                source={{uri: `${props.producto.imagen}`}}
+                source={{ uri: `${props.producto.imagen}` }}
                 alt="image"
               />
             </AspectRatio>
@@ -98,20 +100,31 @@ export const Cards = (props) => {
                   {"$ " + props.producto.precio}
                 </Text>
                 <Text>{props.producto.calificacion}</Text>
+                {/* <Text onPress={()=>likeDislikeProduct()}>{likes}</Text>
+							<Text>{likeProducts.length}</Text> */}
               </HStack>
             </HStack>
           </Stack>
         </Box>
       </Center>
     </NativeBaseProvider>
-  )
-}
+  );
+};
 
-export default Cards
+const mapStateToProps = (state) => {
+  return {
+    user: state.authReducer.user,
+  };
+};
+
+const mapDispatchToProps = {
+  likeDislike: productoAction.likeDislike,
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Cards);
 
 const styles = StyleSheet.create({
   imagen: {
     width: 50,
     height: 50,
   },
-})
+});
