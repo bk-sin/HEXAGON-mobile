@@ -15,7 +15,7 @@ import productoAction from "../redux/actions/productoAction.jsx";
 import { connect } from "react-redux";
 
 const paginaProducto = (props) => {
-  console.log(props.producto);
+  // console.log(props.producto);
 
   useEffect(() => {
     let myListener = props.navigation.addListener("focus", () => {
