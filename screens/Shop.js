@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { ScrollView } from "react-native";
-import Cards from "../components/Cards";
+import Cards from "../components/Productos";
 import productoAction from "../redux/actions/productoAction";
 import { connect } from "react-redux";
 

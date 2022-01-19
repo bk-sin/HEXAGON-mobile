@@ -3,7 +3,7 @@ import {
   DrawerContentScrollView,
   DrawerItemList
 } from "@react-navigation/drawer";
-import Shop from "../screens/Shop";
+import Productos from "../screens/Productos";
 import SignUp from "../screens/SignUp";
 import SignIn from "../screens/SignIn";
 import NavTabs from "./NavTabs";
@@ -32,7 +32,7 @@ const NavDrawer = (props) => {
           headerShown: false,
         }}
       />
-      <drawer.Screen name="Shop" component={Shop} />
+      <drawer.Screen name="Productos" component={Productos} />
       <drawer.Screen name="SignUp" component={SignUp} />
       <drawer.Screen name="SignIn" component={SignIn} />
     </drawer.Navigator>

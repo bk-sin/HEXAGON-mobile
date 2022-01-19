@@ -11,10 +11,11 @@ import {
   Stack,
   NativeBaseProvider,
 } from "native-base";
+import { TouchableOpacity } from "react-native";
 import productoAction from "../redux/actions/productoAction";
 import { connect } from "react-redux";
 
-const Cards = (props) => {
+const Productos = (props) => {
   return (
     <NativeBaseProvider>
       <Center>
@@ -100,8 +101,15 @@ const Cards = (props) => {
                   {"$ " + props.producto.precio}
                 </Text>
                 <Text>{props.producto.calificacion}</Text>
-                {/* <Text onPress={()=>likeDislikeProduct()}>{likes}</Text>
-							<Text>{likeProducts.length}</Text> */}
+                <TouchableOpacity>
+                  onPress=
+                  {() =>
+                    props.navigation.navigate("producto", {
+                      id: props.producto._id,
+                    })
+                  }
+                  <Text style={styles.boton}>See more</Text>
+                </TouchableOpacity>
               </HStack>
             </HStack>
           </Stack>
@@ -120,11 +128,17 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   likeDislike: productoAction.likeDislike,
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Cards);
+export default connect(mapStateToProps, mapDispatchToProps)(Productos);
 
 const styles = StyleSheet.create({
   imagen: {
     width: 50,
     height: 50,
+  },
+  boton: {
+    marginLeft: 40,
+    marginTop: 20,
+    fontWeight: "600",
+    fontSize: 20,
   },
 });
