@@ -1,9 +1,9 @@
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
-  DrawerItemList
+  DrawerItemList,
 } from "@react-navigation/drawer";
-import Productos from "../screens/Productos";
+import Shop from "../screens/Shop";
 import SignUp from "../screens/SignUp";
 import SignIn from "../screens/SignIn";
 import NavTabs from "./NavTabs";
@@ -32,7 +32,7 @@ const NavDrawer = (props) => {
           headerShown: false,
         }}
       />
-      <drawer.Screen name="Productos" component={Productos} />
+      <drawer.Screen name="Shop" component={Shop} />
       <drawer.Screen name="SignUp" component={SignUp} />
       <drawer.Screen name="SignIn" component={SignIn} />
     </drawer.Navigator>

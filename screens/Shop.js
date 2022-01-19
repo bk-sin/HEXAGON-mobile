@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { ScrollView } from "react-native";
-import Cards from "../components/Productos";
+import Productos from "../components/Productos";
 import productoAction from "../redux/actions/productoAction";
 import { connect } from "react-redux";
 
@@ -13,7 +13,7 @@ const Shop = (props) => {
   return (
     <ScrollView>
       {props.productos.map((producto, index) => {
-        return <Cards key={index} producto={producto} />;
+        return <Productos key={index} producto={producto} />;
       })}
     </ScrollView>
   );

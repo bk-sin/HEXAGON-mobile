@@ -1,7 +1,8 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Button } from "react-native";
 import Home from "../screens/Home";
-import Productos from "../screens/Productos";
+import Shop from "../screens/Shop";
+import paginaProducto from "../components/paginaProducto";
 import SignUp from "../screens/SignUp";
 import SignIn from "../screens/SignIn";
 import authAction from "../redux/actions/authAction.jsx";
@@ -27,7 +28,8 @@ function NavTabs(props) {
           ),
         }}
       />
-      <Tab.Screen name="Productos" component={Productos} />
+      <Tab.Screen name="Shop" component={Shop} />
+      <Tab.Screen name="paginaProducto" component={paginaProducto} />
       <Tab.Screen name="SignUp" component={SignUp} />
       <Tab.Screen name="SignIn" component={SignIn} />
     </Tab.Navigator>
