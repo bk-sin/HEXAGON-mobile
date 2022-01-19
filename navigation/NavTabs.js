@@ -11,7 +11,6 @@ import { connect } from "react-redux";
 const Tab = createNativeStackNavigator();
 function NavTabs(props) {
   !props.isAuth && props.tokenVerify();
-  console.log(props);
   return (
     <Tab.Navigator>
       <Tab.Screen

@@ -101,13 +101,13 @@ const Productos = (props) => {
                   {"$ " + props.producto.precio}
                 </Text>
                 <Text>{props.producto.calificacion}</Text>
-                <TouchableOpacity>
-                  onPress=
-                  {() =>
-                    props.navigation.navigate("paginaProducto", {
+                <TouchableOpacity
+                  onPress={() =>
+                    props.navigate("paginaProducto", {
                       id: props.producto._id,
                     })
                   }
+                >
                   <Text style={styles.boton}>See more</Text>
                 </TouchableOpacity>
               </HStack>

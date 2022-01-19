@@ -4,7 +4,6 @@ import Productos from "../components/Productos";
 import productoAction from "../redux/actions/productoAction";
 import { connect } from "react-redux";
 
-
 const Shop = (props) => {
   useEffect(() => {
     props.listaProductos();
@@ -13,7 +12,13 @@ const Shop = (props) => {
   return (
     <ScrollView>
       {props.productos.map((producto, index) => {
-        return <Productos key={index} producto={producto} />;
+        return (
+          <Productos
+            key={index}
+            producto={producto}
+            navigate={props.navigation.navigate}
+          />
+        );
       })}
     </ScrollView>
   );
