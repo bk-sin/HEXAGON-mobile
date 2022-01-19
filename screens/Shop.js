@@ -1,14 +1,24 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { ScrollView } from "react-native";
 import Productos from "../components/Productos";
 import productoAction from "../redux/actions/productoAction";
+import Loader from '../components/Loader'
+
 import { connect } from "react-redux";
 
 const Shop = (props) => {
+  const [loading, setLoading] = useState(true)
   useEffect(() => {
-    props.listaProductos();
+    const getProductos = async() => {
+      let res = await props.listaProductos()
+      if(res) setLoading(false)
+    }
+    getProductos()
   }, []);
 
+  if(loading){
+    return <Loader />
+  }
   return (
     <ScrollView>
       {props.productos.map((producto, index) => {

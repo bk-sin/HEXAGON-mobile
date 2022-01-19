@@ -39,7 +39,7 @@ const Productos = (props) => {
           }}
         >
           <Box>
-            <AspectRatio w="100%" ratio={16 / 9}>
+            <AspectRatio w="100%" ratio={16 / 9} style={{resizeMode: "contain"}}>
               <Image
                 styles={styles.imagen}
                 source={{ uri: `${props.producto.imagen}` }}
@@ -133,7 +133,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(Productos);
 const styles = StyleSheet.create({
   imagen: {
     width: 50,
-    height: 50,
+    height: 100,
+    resizeMode: "contain"
   },
   boton: {
     marginLeft: 40,
