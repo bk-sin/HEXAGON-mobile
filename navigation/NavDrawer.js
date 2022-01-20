@@ -7,16 +7,14 @@ import Shop from "../screens/Shop";
 import SignUp from "../screens/SignUp";
 import SignIn from "../screens/SignIn";
 import NavTabs from "./NavTabs";
-import { Text } from "react-native";
+import Perfil from "../components/Perfil";
 
 const drawer = createDrawerNavigator();
 
 const NavDrawer = (props) => {
   return (
     <drawer.Navigator
-      // drawerContent={(props) => {
-      //   <MenuItems {...props} />;
-      // }}
+      drawerContent={(props) => <Perfil {...props} />}
       screenOptions={{
         headerStyle: {
           backgroundColor: "#212529",

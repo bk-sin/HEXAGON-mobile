@@ -78,6 +78,7 @@ const authAction = {
           email,
           photo,
           country,
+          google:false
         })
         if (response.data.success && !response.data.errors) {
           getState().modalReducer.showModal = false
