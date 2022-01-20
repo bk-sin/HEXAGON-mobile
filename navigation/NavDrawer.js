@@ -8,6 +8,8 @@ import SignUp from "../screens/SignUp";
 import SignIn from "../screens/SignIn";
 import NavTabs from "./NavTabs";
 import Perfil from "../components/Perfil";
+import LogOut from "../components/LogOut";
+import { connect } from "react-redux";
 
 const drawer = createDrawerNavigator();
 
@@ -31,17 +33,22 @@ const NavDrawer = (props) => {
         }}
       />
       <drawer.Screen name="Shop" component={Shop} />
-      <drawer.Screen name="SignUp" component={SignUp} />
-      <drawer.Screen name="SignIn" component={SignIn} />
+      {!props.isAuth ? (
+        <>
+          <drawer.Screen name="SignUp" component={SignUp} />
+          <drawer.Screen name="SignIn" component={SignIn} />
+        </>
+      ) : (
+        <drawer.Screen name="Log Out" component={LogOut} />
+      )}
     </drawer.Navigator>
   );
 };
 
-// const MenuItems = ({ navigation }) => {
-//   return (
-//     <DrawerContentScrollView>
-//       <Text>My Menu</Text>
-//     </DrawerContentScrollView>
-//   );
-// };
-export default NavDrawer;
+const mapStateToProps = (state) => {
+  return {
+    isAuth: state.authReducer.isAuth,
+  };
+};
+
+export default connect(mapStateToProps)(NavDrawer);

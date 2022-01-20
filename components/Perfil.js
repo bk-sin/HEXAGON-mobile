@@ -17,7 +17,9 @@ function Perfil(props) {
         }}
       >
         <View style={styles.containerFoto}>
-          <Text style={styles.containerNombre}>{props.user.firstName}</Text>
+          <Text style={styles.containerNombre}>
+            { props.user.firstName}
+          </Text>
           <Image
             source={{ uri: `${props.user.photo}` }}
             style={{ width: 60, height: 60, borderRadius: 30, marginLeft: 10 }}

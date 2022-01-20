@@ -144,9 +144,10 @@ const authAction = {
       }
     }
   },
-  logout: async () => {
-    await AsyncStorage.removeItem("token")
-    return (dispatch, getState) => {
+  logout: () => {
+    const Storage = async () => await AsyncStorage.removeItem("token")
+    Storage()
+    return  (dispatch, getState) => {
       dispatch({type: "auth@@LOGOUT", payload: ""})
     }
   },

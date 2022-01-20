@@ -54,9 +54,9 @@ function authReducer(state = initialState, {payload, type}) {
         ...state,
         isAuth: false,
         isLoading: false,
-        user: null,
-        token: null,
-        authError: null,
+        user: "",
+        token: "",
+        authError: "",
       }
     case "auth@@ALL_USERS":
       return {

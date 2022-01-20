@@ -52,23 +52,6 @@ const Productos = (props) => {
                   alt="image"
                 />
               </AspectRatio>
-              <Center
-                bg="violet.500"
-                _dark={{
-                  bg: "violet.400",
-                }}
-                _text={{
-                  color: "warmGray.50",
-                  fontWeight: "700",
-                  fontSize: "xs",
-                }}
-                position="absolute"
-                bottom="0"
-                px="3"
-                py="1.5"
-              >
-                PHOTOS
-              </Center>
             </Box>
             <Stack p="4" space={3}>
               <Stack space={2}>
@@ -108,6 +91,7 @@ const Productos = (props) => {
                   </Text>
                   <Text>{props.producto.calificacion}</Text>
                   <TouchableOpacity
+                    styles={styles.boton}
                     onPress={() =>
                       props.navigate("Selected Product", {
                         id: props.producto._id,
@@ -154,5 +138,17 @@ const styles = StyleSheet.create({
     height: vh(90),
     resizeMode: "cover",
     alignItems: "center",
+  },
+  boton: {
+    borderColor: "#ef2f56",
+    borderWidth: 3,
+    borderRadius: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 5,
+    backgroundColor: "#e1c5f3",
+    marginTop: 50,
+    marginHorizontal: 40,
+    fontSize: 15,
+    fontWeight: "600",
   },
 });

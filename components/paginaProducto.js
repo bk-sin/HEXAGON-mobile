@@ -16,7 +16,7 @@ import { connect } from "react-redux";
 import { vw, vh, vmax } from "react-native-expo-viewport-units";
 
 const paginaProducto = (props) => {
-  // console.log(props.producto);
+  console.log(props.producto);
 
   useEffect(() => {
     let myListener = props.navigation.addListener("focus", () => {
