@@ -28,7 +28,7 @@ function NavTabs(props) {
         }}
       />
       <Tab.Screen name="Shop" component={Shop} />
-      <Tab.Screen name="paginaProducto" component={paginaProducto} />
+      <Tab.Screen name="Selected Product" component={paginaProducto} />
       <Tab.Screen name="SignUp" component={SignUp} />
       <Tab.Screen name="SignIn" component={SignIn} />
     </Tab.Navigator>
